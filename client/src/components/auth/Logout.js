@@ -1,0 +1,25 @@
+//	This method uses a NavLink and a Button that 
+//	displays Logout. On clicking it calls the logout 
+//	action. We connect it with the logout action and
+//	export it.
+import { Component, Fragment } from 'react';
+import { logout } from '../../actions/authActions';
+import { connect } from 'react-redux';
+import {NavLink, Button} from 'reactstrap';
+import PropTypes from 'prop-types';
+export class Logout extends Component {
+    static propTypes = {
+        logout: PropTypes.func.isRequired
+    }
+    render() {
+        return (
+            <div>
+                <Fragment>
+                    <Button color="danger" className="btn btn-sm"><NavLink onClick={this.props.logout} href="#"><span className="text-light"><b>Logout</b></span></NavLink></Button>
+                </Fragment>
+            </div>
+        )
+    }
+}
+
+export default connect(null,{logout})(Logout);
