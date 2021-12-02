@@ -39,20 +39,24 @@ class Home extends Component {
                     <div className="col-md-4">
                     <Card className="mb-4">
                         <CardBody>
+							<img src={item.imageURL} />
                             <CardTitle tag="h5">{item.name}</CardTitle>
-                            <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
-                            <CardText>{item.category}</CardText>
-                            {this.props.isAuthenticated ? 
-                                <Button
+                            <CardSubtitle tag="h6">Price: {item.price}</CardSubtitle>
+                            <CardText>
+								<p>Brand: {item.brand}<br />
+								   Category: {item.category}</p>
+							</CardText>
+								{this.props.isAuthenticated ? 
+								<Button
                                     color="success"
                                     size="sm"
                                     onClick={this.onAddToCart.bind(this, user._id, item._id)}
-                                    >Add To Cart</Button> :
-                                    null}
+                                    >Add To Cart</Button>  :
+                                    null}      
                         </CardBody>
                     </Card>
                     </div>
-                ))}:<div style={{width:"100%"}}>No products found.</div>}
+                ))}
                  </div>
             </Container>
             </div>
