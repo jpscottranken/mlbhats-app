@@ -7,7 +7,7 @@ import AppNavbar from './AppNavbar';
 import {Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Alert, Container} from 'reactstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCart, deleteFromCart } from '../actions/cartActions';
+import { getCart, deleteFromCart, updateCart } from '../actions/cartActions';
 import Checkout from './Checkout';
 import { checkout } from '../actions/orderActions';
 
@@ -21,6 +21,7 @@ class Cart extends Component {
         isAuthenticated: PropTypes.bool,
         addToCart: PropTypes.func.isRequired,
         deleteFromCart: PropTypes.func.isRequired,
+		updateCart: PropTypes.func.isRequired,
         user: PropTypes.object.isRequired,
         cart: PropTypes.object.isRequired,
         checkout: PropTypes.func.isRequired
@@ -35,7 +36,7 @@ class Cart extends Component {
         this.props.deleteFromCart(id, itemId);
     }  
 	
-    onUpdateQuantity = async (userId, productId, qty) => {
+    onUpdateCart = async (userId, productId, qty) => {
       await this.props.updateCart(userId, productId, qty);
     }
     
@@ -62,14 +63,15 @@ class Cart extends Component {
                             <div className="col-md-4">
                         <Card>
                             <CardBody>
-                                <CardTitle tag="h5">{item.name}</CardTitle>
-                                <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
+                                <CardTitle tag="h5">Name: {item.name}</CardTitle>
+                                <CardSubtitle tag="h6">Price: {item.price.toFixed(2)}</CardSubtitle>
                                 <div style={qtyBox}>
-                                  <p style={{...qtyBtn, border:"1px solid red", color: "Red"}} onClick={() => this.onUpdateQuantity(user._id, item.productId, item.quantity - 1)}>
+                                  <p style={{...qtyBtn, border:"1px solid red", color: "Red"}} onClick={() => this.onUpdateCart(user._id, item.productId, item.quantity - 1)}>
                                     -1
                                   </p>
-                                  <CardText>Quantity - {item.quantity}</CardText>
-                                  <p style={{...qtyBtn, border:"1px solid green", color: "green"}} onClick={() => this.onUpdateQuantity(user._id, item.productId, item.quantity + 1)}>
+                                  <CardText>Quantity: {item.quantity}</CardText>
+                                  <p style={{...qtyBtn, border:"1px solid green", color: "green"}} onClick={() => this.onUpdateCart(user._id, item.productId, item.quantity + 1)}>
+             
                                     +1
                                   </p>
                                 </div>
@@ -82,7 +84,7 @@ class Cart extends Component {
                         <div class="col-md-12">
                         <Card>
                             <CardBody>
-                                <CardTitle tag="h5">Total Cost = Rs. {this.props.cart.cart.bill}</CardTitle>
+                                <CardTitle tag="h5">Total Cost = ${this.props.cart.cart.bill.toFixed(0)}</CardTitle>
                                 <Checkout
                                     user={user._id}
                                     amount={this.props.cart.cart.bill}

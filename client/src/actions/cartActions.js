@@ -27,39 +27,24 @@
 
 Here is the associated code:
 */
-
 import axios from 'axios';
 import { returnErrors } from './errors';
 import { GET_CART, ADD_TO_CART, DELETE_FROM_CART, CART_LOADING } from './types';
 
-//	 This function is used to fetch a cart for a user
 export const getCart = (id) => dispatch => {
     dispatch(setCartLoading());
     axios.get(`/api/cart/${id}`)
-	.then(res => dispatch({
-		type: GET_CART,
-		payload: res.data
-	}))
-	.catch(err => dispatch(returnErrors(
-				err.response.data, err.response.status)));
+        .then(res => dispatch({
+            type: GET_CART,
+            payload: res.data
+        }))
+        .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 }
 
-//	This function is used to add an item to cart.
-export const addToCart = (id, productId, quantity) => dispatch => {
-    axios.post(`/api/cart/${id}`, {productId, quantity})
-	.then(res => dispatch({
-		type: ADD_TO_CART,
-		payload: res.data
-	}))
-	.catch(err => dispatch(returnErrors(
-				err.response.data, err.response.status)));
-}
-
-//	This function is used to update a cart item
 export const updateCart = (userId, productId, qty) => dispatch => {
   dispatch(setCartLoading());
   axios.put(`/api/cart/${userId}`, {productId, qty})
-      .then(res => dispatch({
+      .then((res) => dispatch({
           type: GET_CART,
           payload: res.data
       }))
@@ -69,19 +54,26 @@ export const updateCart = (userId, productId, qty) => dispatch => {
       });
 }
 
-//	This function is used to delete an item from the cart.
+export const addToCart = (id, productId, quantity) => dispatch => {
+    axios.post(`/api/cart/${id}`, {productId, quantity})
+        .then((res) => dispatch({
+            type: ADD_TO_CART,
+            payload: res.data
+        }))
+        .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+}
+
 export const deleteFromCart = (userId, itemId) => dispatch => {
-	axios.delete(`/api/cart/${userId}/${itemId}`)
-	.then(res => dispatch({
-		type: DELETE_FROM_CART,
-		payload: res.data
-	}))
-	.catch(err => dispatch(returnErrors(
-				err.response.data, err.response.status)));
+    axios.delete(`/api/cart/${userId}/${itemId}`)
+        .then((res) => dispatch({
+            type: DELETE_FROM_CART,
+            payload: res.data
+        }))
+        .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 }
 
 export const setCartLoading = () => {
-    return {
+    return{
         type: CART_LOADING
     }
 }

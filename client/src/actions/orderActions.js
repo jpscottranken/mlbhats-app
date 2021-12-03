@@ -28,30 +28,38 @@ import { returnErrors } from './errors';
 import { GET_ORDERS, CHECKOUT, ORDERS_LOADING } from './types';
 
 //	This function first sets the orders as loading.
-export const getOrders = (id) => dispatch => {
-    dispatch(setOrdersLoading());
-    axios.get(`/api/order/${id}`)
-	.then(res => dispatch({
-		type: GET_ORDERS,
-		payload: res.data
-	}))
-	.catch(err => dispatch(returnErrors(
-					err.response.data, err.response.status)));
-}
+export const getOrders = (id) => (dispatch) => {
+	dispatch(setOrdersLoading());
+	axios
+		.get(`/api/order/${id}`)
+		.then((res) =>
+			dispatch({
+				type: GET_ORDERS,
+				payload: res.data,
+			})
+		)
+		.catch((err) =>
+			dispatch(returnErrors(err.response.data, err.response.status))
+		);
+};
 
 //	This function is used to place an order.
-export const checkout = (id, source) => dispatch => {
-    axios.post(`/api/order/${id}`, {source})
-	.then(res => dispatch({
-		type: CHECKOUT,
-		payload: res.data
-	}))
-	.catch(err => dispatch(returnErrors(
-					err.response.data, err.response.status)));
-}
+export const checkout = (id, source) => (dispatch) => {
+	axios
+		.post(`/api/order/${id}`, { source })
+		.then((res) =>
+			dispatch({
+				type: CHECKOUT,
+				payload: res.data,
+			})
+		)
+		.catch((err) =>
+			dispatch(returnErrors(err.response.data, err.response.status))
+		);
+};
 
 export const setOrdersLoading = () => {
-    return {
-        type: ORDERS_LOADING
-    }
-}
+	return {
+		type: ORDERS_LOADING,
+	};
+};

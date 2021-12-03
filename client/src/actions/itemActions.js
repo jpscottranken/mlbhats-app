@@ -57,52 +57,68 @@ import { returnErrors } from './errors';
 
 //	This function is used for fetching all 
 //	items from the backend using API endpoint.
-export const getItems = () => dispatch => {
+export const getItems = () => (dispatch) => {
 	dispatch(setItemsLoading());
-	axios.get('/api/items')
-	.then(res => dispatch({
-		type: GET_ITEMS,
-		payload: res.data
-	}))
-	.catch(err => dispatch(returnErrors(
-				err.response.data, err.response.status)));
-}
+	axios
+		.get("./api/items")
+		.then((res) =>
+			dispatch({
+				type: GET_ITEMS,
+				payload: res.data,
+			})
+		)
+		.catch((err) =>
+			dispatch(returnErrors(err.response.data, err.response.status))
+		);
+};
 
 //	This function is used to add an item to the database.
 export const addItem = (item) => (dispatch) => {
-	axios.post('/api/items', item)
-	.then(res => dispatch({
-		type: ADD_ITEM,
-		payload: res.data
-	}))
-	.catch(err => dispatch(returnErrors(
-				err.response.data, err.response.status)))
-}
+	axios
+		.post("/api/items", item)
+		.then((res) =>
+			dispatch({
+				type: ADD_ITEM,
+				payload: res.data,
+			})
+		)
+		.catch((err) =>
+			dispatch(returnErrors(err.response.data, err.response.status))
+		);
+};
 
 //	This function is used to delete an item from the database.
 export const deleteItem = (id) => (dispatch) => {
-	axios.delete(`/api/items/${id}`)
-	.then(res => dispatch({
-		type: DELETE_ITEM,
-		payload: id
-	}))
-	.catch(err => dispatch(returnErrors(
-				err.response.data, err.response.status)))
-}
+	axios
+		.delete(`/api/items/${id}`)
+		.then((res) =>
+			dispatch({
+				type: DELETE_ITEM,
+				payload: id,
+			})
+		)
+		.catch((err) =>
+			dispatch(returnErrors(err.response.data, err.response.status))
+		);
+};
 
 //	This function is used to update an existing item.
 export const updateItem = (id, item) => (dispatch) => {
-	axios.put(`/api/items/${id}`, item)
-	.then(res => dispatch({
-		type: UPDATE_ITEM,
-		payload: Promise.all([id, res.data])
-	}))
-	.catch(err => dispatch(returnErrors(
-				err.response.data, err.response.status)))
-}
-	
+	axios
+		.put(`/api/items/${id}`, item)
+		.then((res) =>
+			dispatch({
+				type: UPDATE_ITEM,
+				payload: Promise.all([id, res.data]),
+			})
+		)
+		.catch((err) =>
+			dispatch(returnErrors(err.response.data, err.response.status))
+		);
+};
+
 export const setItemsLoading = () => {
 	return {
-		type: ITEMS_LOADING
-	}
-}
+		type: ITEMS_LOADING,
+	};
+};

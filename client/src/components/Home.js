@@ -39,7 +39,7 @@ class Home extends Component {
                     <div className="col-md-4">
                     <Card className="mb-4">
                         <CardBody>
-							<img src={item.imageURL} />
+							<img src={item.imageURL} alt="Team Hat" />
                             <CardTitle tag="h5">{item.name}</CardTitle>
                             <CardSubtitle tag="h6">Price: {item.price}</CardSubtitle>
                             <CardText>
