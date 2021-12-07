@@ -8,7 +8,17 @@ import { addItem } from '../actions/itemActions';
 import PropTypes from 'prop-types';
 import AppNavbar from './AppNavbar';
 class AddItem extends Component {
-    state = {
+    /*state = {
+        name: '',
+		imageURL: '',
+        description: '',
+		brand: '',
+        category: '',
+		numberInStock: '',
+        price: '',
+    }*/
+	
+	state = {
         title: '',
         description: '',
         category: '',
@@ -25,12 +35,21 @@ class AddItem extends Component {
 	
     onSubmit = async (e) => {
         e.preventDefault();
-        const newItem = {
+		   const newItem = {
             title: this.state.title,
             description: this.state.description,
             category: this.state.category,
             price: this.state.price
         }
+		/*const newItem = {
+            name: this.state.name,
+            imageURL: this.state.imageURL,
+            description: this.state.description,
+            brand: this.state.brand,
+            category: this.state.category,
+			numberInStock: this.state.numberInStock,
+            price: this.state.price
+        }*/
 		
         await this.props.addItem(newItem);
 		

@@ -7,7 +7,7 @@ import AppNavbar from './AppNavbar';
 import {Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Alert, Container} from 'reactstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCart, deleteFromCart, updateCart } from '../actions/cartActions';
+import { getCart, updateCart, deleteFromCart } from '../actions/cartActions';
 import Checkout from './Checkout';
 import { checkout } from '../actions/orderActions';
 
@@ -19,6 +19,7 @@ class Cart extends Component {
     static propTypes = {
         getCart: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool,
+        cardError: PropTypes.bool,
         addToCart: PropTypes.func.isRequired,
         deleteFromCart: PropTypes.func.isRequired,
 		updateCart: PropTypes.func.isRequired,
@@ -110,4 +111,4 @@ const mapStateToProps = (state) => ({
 const qtyBox = {display: "flex", justifyContent: "space-evenly", border: "1px solid #aaa", borderRadius: "5px", paddingTop: "5px", paddingBottom: "5px", marginBottom: "5px"};
 const qtyBtn = {paddingLeft: "5px", paddingRight: "5px", borderRadius: "5px", marginBottom: "0px"};
 
-export default connect(mapStateToProps, {getCart, deleteFromCart, checkout})(Cart);
+export default connect(mapStateToProps, {getCart, updateCart, deleteFromCart, checkout})(Cart);

@@ -57,7 +57,7 @@ module.exports.add_cart_item = async (req, res) => {
     }
 
     const price = item.price
-    const name = item.title
+    const name = item.name
 
     //	If the user has a cart, search for the item needed to add.
     //	First try to find a cart with the userId we have.

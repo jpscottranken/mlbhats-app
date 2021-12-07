@@ -61,7 +61,7 @@ module.exports.checkout = async (req, res) => {
     //	the frontend and the receipt_email.
     if (cart) {
       const charge = await stripe.charges.create({
-        amount: cart.bill,
+        amount: cart.bill*100,
         currency: "usd",
         source: source,
         receipt_email: email,
